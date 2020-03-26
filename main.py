@@ -33,14 +33,16 @@ class Main:
         for key, val in enumerate(self.medias):
             print("[" + str(key +1) + "] " + self.medias[val])
             if key < 5 :
-                mediaExample += val + "/"
+                mediaExample += val + " / "
 
-        selectMedia = input('mau baca berita dari media apa ? ('+ mediaExample +') ') 
+        selectMedia = input('mau baca berita dari media apa ? ('+ mediaExample +' exit) ') 
         print("")
-        self.checkInput(selectMedia)
 
         if selectMedia not in self.medias:
-            self.showMediaMenu()
+            if selectMedia in ["quit", "exit", "keluar"]:
+                exit
+            else:
+                self.showMediaMenu()
         else:
             self.selectMedia = selectMedia
             self.showIndexByMedia()
@@ -66,7 +68,6 @@ class Main:
 
         selectNewsIdx = input('pilih berita [1/2/3/..] ')
         print("")
-        self.checkInput(selectNewsIdx)
         
         try:
             selectNewsIdx = int(selectNewsIdx) - 1
@@ -87,7 +88,6 @@ class Main:
 
         nextAction = input("Tekan 'enter' untuk kembali ke index berita " + self.selectMedia + " ,ketik 'menu' untuk kembali kembali memilih media ")
         print("")
-        self.checkInput(nextAction)
         
         if nextAction == 'menu':
             self.showMediaMenu()
