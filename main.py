@@ -2,6 +2,7 @@ from online_news.kompas import Kompas
 from online_news.detik import Detik
 from online_news.bbc import BBC
 from online_news.tirto import Tirto
+from online_news.cnbc import CNBC
 
 class Main:
     mediaObject = None
@@ -9,7 +10,8 @@ class Main:
             "kompas": "Kompas",
             "detik": "Detik",
             "bbc": "BBC Indonesia",
-            "tirto": "Tirto"
+            "tirto": "Tirto",
+            "cnbc": "CNBC"
         }
     selectMedia = ''
 
@@ -57,6 +59,8 @@ class Main:
             self.mediaObject = BBC()
         elif self.selectMedia == "tirto":
             self.mediaObject = Tirto()
+        elif self.selectMedia == "cnbc":
+            self.mediaObject = CNBC()
 
         newsIndex = self.mediaObject.getIndex()
         
