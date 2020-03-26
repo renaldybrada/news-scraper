@@ -1,14 +1,6 @@
-import requests
-from bs4 import BeautifulSoup
+from .onlineNews import onlineNews
 
-class Kompas:
-    def soupHTMLParser(self, link):
-        page = requests.get(link)
-        HTMLcontent = page.content
-        soup = BeautifulSoup(HTMLcontent, 'html.parser')
-
-        return soup
-
+class Kompas(onlineNews):
     def getIndex(self):
         soup = self.soupHTMLParser('https://indeks.kompas.com/')
         news_container = soup.select_one(".latest--indeks").select(".article__asset > a")

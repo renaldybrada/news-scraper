@@ -1,14 +1,6 @@
-import requests
-from bs4 import BeautifulSoup
+from .onlineNews import onlineNews
 
-class BBC:
-    def soupHTMLParser(self, link):
-        page = requests.get(link)
-        HTMLcontent = page.content
-        soup = BeautifulSoup(HTMLcontent, 'html.parser')
-
-        return soup
-
+class BBC(onlineNews):
     def getIndex(self):
         soup = self.soupHTMLParser('https://www.bbc.com/indonesia/topics/cjgn7k8yx4gt')
         news_container = soup.select_one(".lx-stream__feed").select(".lx-stream__post-container")

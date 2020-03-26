@@ -1,14 +1,6 @@
-import requests
-from bs4 import BeautifulSoup
+from .onlineNews import onlineNews
 
-class Detik:
-    def soupHTMLParser(self, link):
-        page = requests.get(link)
-        HTMLcontent = page.content
-        soup = BeautifulSoup(HTMLcontent, 'html.parser')
-
-        return soup
-
+class Detik(onlineNews):
     def getIndex(self):
         soup = self.soupHTMLParser('https://news.detik.com/indeks')
         news_container = soup.select_one("#indeks-container").select(".list-content__item")

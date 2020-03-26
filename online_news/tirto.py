@@ -1,15 +1,6 @@
-import requests
-from bs4 import BeautifulSoup
-import json
+from .onlineNews import onlineNews
 
-class Tirto:
-    def soupHTMLParser(self, link):
-        page = requests.get(link)
-        HTMLcontent = page.content
-        soup = BeautifulSoup(HTMLcontent, 'html.parser')
-
-        return soup
-
+class Tirto(onlineNews):
     def getIndex(self):
         soup = self.soupHTMLParser('https://tirto.id/q/current-issue-hPZ')
         news_container = soup.select_one(".my-5").select(".news-list-fade")
