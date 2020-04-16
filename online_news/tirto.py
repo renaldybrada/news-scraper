@@ -5,7 +5,6 @@ class Tirto(onlineNews):
         soup = self.soupHTMLParser('https://tirto.id/q/current-issue-hPZ')
         news_container = soup.select_one(".my-5").select(".news-list-fade")
 
-        print(soup.select_one(".image-title").find_previous_sibling())
         news_index = [
             {
                 'media': 'Tirto',
