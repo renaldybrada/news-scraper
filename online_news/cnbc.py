@@ -9,6 +9,7 @@ class CNBC(onlineNews):
         for news in news_container:
             temp = {
                 'media': 'CNBC',
+                'channel': 'cnbc',
                 'title': news.select_one(".box_text > h2").get_text(),
                 'image': news.select_one("img")['src'],
                 'link': news.select_one("a")['href']
@@ -29,6 +30,7 @@ class CNBC(onlineNews):
 
         result = {
             'title': soup.title.string,
+            'image': soup.find("meta", {"property":"og:image"})['content'],
             'content': content,
             'author': soup.find("meta", {"name":"dtk:author"})['content'],
             'editor': '',

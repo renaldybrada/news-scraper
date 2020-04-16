@@ -5,9 +5,11 @@ class Tirto(onlineNews):
         soup = self.soupHTMLParser('https://tirto.id/q/current-issue-hPZ')
         news_container = soup.select_one(".my-5").select(".news-list-fade")
 
+        print(soup.select_one(".image-title").find_previous_sibling())
         news_index = [
             {
                 'media': 'Tirto',
+                'channel': 'tirto',
                 'title': soup.select_one(".image-title").get_text(),
                 'image': '',
                 'link' : 'https://tirto.id' + soup.select_one(".z-2 > a")['href']
@@ -16,6 +18,7 @@ class Tirto(onlineNews):
         for news in news_container:
             temp = {
                 'media': 'Tirto',
+                'channel': 'tirto',
                 'title': news.select_one(".list-title-outside-box").get_text(),
                 'image': '',
                 'link': 'https://tirto.id' + news.select_one(".m-0 > a")['href']

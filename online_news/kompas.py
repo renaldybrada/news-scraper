@@ -10,6 +10,7 @@ class Kompas(onlineNews):
         for new in news_container:
             temp = {
                 'media': 'Kompas',
+                'channel': 'kompas',
                 'title': new.img['alt'],
                 'image': new.img['src'],
                 'link': new['href']
@@ -31,6 +32,7 @@ class Kompas(onlineNews):
 
         result = {
             'title': soup.title.string,
+            'image': soup.find("meta", {"property":"og:image"})['content'],
             'content': content,
             'author': soup.find("meta", {"name":"content_author"})['content'],
             'editor': soup.find("meta", {"name":"content_editor"})['content'],

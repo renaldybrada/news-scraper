@@ -23,3 +23,7 @@ def show_headlines(channel):
 def show_news(channel):
     link = request.args.get('link')
     return news.showNews(channel, link)
+
+
+if __name__ == "__main__":
+    app.run()

@@ -10,6 +10,7 @@ class Detik(onlineNews):
         for news in news_container:
             temp = {
                 'media': 'Detikcom',
+                'channel': 'detik',
                 'title': news.select_one(".media__title > a").get_text(),
                 'image': news.select_one(".media__image > a > span > img")['src'],
                 'link': news.select_one(".media__title > a")['href']
@@ -34,6 +35,7 @@ class Detik(onlineNews):
 
         result = {
             'title': soup.title.string,
+            'image': soup.select_one(".detail__media-image > img")['src'],
             'content': content,
             'author': soup.find("meta", {"name":"dtk:author"})['content'],
             'editor': '',

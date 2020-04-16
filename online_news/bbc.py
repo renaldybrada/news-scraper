@@ -10,6 +10,7 @@ class BBC(onlineNews):
         for news in news_container:
             temp = {
                 'media': 'BBC',
+                'channel': 'bbc',
                 'title': news.select_one(".lx-stream-post__header-text").get_text(),
                 'image': news.select_one(".lx-stream-related-story--index-image-wrapper > img")['src'],
                 'link': 'https://www.bbc.com' + news.select_one(".lx-stream-post__header-link")['href']
@@ -35,6 +36,7 @@ class BBC(onlineNews):
 
         result = {
             'title': soup.title.string,
+            'image': soup.find("meta", {"property":"og:image"})['content'],
             'content': content,
             'author': author,
             'editor': '',
