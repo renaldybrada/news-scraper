@@ -1,12 +1,12 @@
 from online_news.kompas import Kompas
 from online_news.detik import Detik
 from online_news.bbc import BBC
-from online_news.tirto import Tirto
+from online_news.cnn import CNN
 from online_news.cnbc import CNBC
 from flask import url_for, request
 
 class NewsController:
-    channels = ['kompas', 'detik', 'bbc', 'tirto', 'cnbc']
+    channels = ['kompas', 'detik', 'bbc', 'cnn', 'cnbc']
     
     channelObj = None
     
@@ -33,8 +33,8 @@ class NewsController:
             self.channelObj = Detik()
         elif channel == "bbc":
             self.channelObj = BBC()
-        elif channel == "tirto":
-            self.channelObj = Tirto()
+        elif channel == "cnn":
+            self.channelObj = CNN()
         elif channel == "cnbc":
             self.channelObj = CNBC()
     
@@ -59,5 +59,5 @@ class NewsController:
         return self.successResponse(data)
 
     def formatNews(self, content):
-        result = content.replace('\n', '').replace('\"',"'")
+        result = content.replace('\n', '').replace('\"',"'").replace('\r','')
         return result
