@@ -27,8 +27,11 @@ class Tirto(onlineNews):
         return news_index
 
     def showNews(self, link):
-        soup = self.soupHTMLParser(link)
-
+        try:
+            soup = self.soupHTMLParser(link)
+        except:
+            raise Exception("Something went wrong. check is your link valid") 
+        
         paragraphs = soup.select(".content-text-editor")[1].get_text()
         # print(paragraphs) 
 

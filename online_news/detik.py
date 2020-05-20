@@ -20,7 +20,10 @@ class Detik(onlineNews):
         return news_index
 
     def showNews(self, link):
-        soup = self.soupHTMLParser(link)
+        try:
+            soup = self.soupHTMLParser(link)
+        except:
+            raise Exception("Something went wrong. check is your link valid") 
 
         content = ''
         paragraphs = soup.select_one(".detail__body-text")

@@ -19,7 +19,11 @@ class CNBC(onlineNews):
         return news_index
 
     def showNews(self, link):
-        soup = self.soupHTMLParser(link)
+        try:
+            soup = self.soupHTMLParser(link)
+        except:
+            raise Exception("Something went wrong. check is your link valid") 
+        
         paragraphs = soup.select_one('.detail_text')
         if paragraphs.center != None:
             paragraphs.center.extract()

@@ -37,6 +37,8 @@ class NewsController:
             self.channelObj = CNN()
         elif channel == "cnbc":
             self.channelObj = CNBC()
+        else:
+            self.channelObj = None
     
     def showChannels(self):
         data = self.channels
@@ -44,6 +46,9 @@ class NewsController:
 
     def showHeadline(self, channel):
         self.setChannel(channel)
+        if(self.channelObj == None):
+            return self.errorResponse('channel not found!', 404)
+
         data = self.channelObj.getIndex()
         for headline in data:
             headline['news_url'] = request.host_url + url_for('show_news', channel=headline['channel'], link=headline['link'])
@@ -54,7 +59,14 @@ class NewsController:
             return self.errorResponse('link cannot be empty', 422)
 
         self.setChannel(channel)
-        data = self.channelObj.showNews(news_url)
+        if(self.channelObj == None):
+            return self.errorResponse('channel not found!', 404)
+
+        try:
+            data = self.channelObj.showNews(news_url)
+        except Exception as e:
+            return self.errorResponse(str(e), 500)
+
         data['formated_news'] = self.formatNews(data['content'])
         return self.successResponse(data)
 
