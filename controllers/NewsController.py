@@ -4,10 +4,11 @@ from online_news.bbc import BBC
 from online_news.cnn import CNN
 from online_news.cnbc import CNBC
 from online_news.idntimes import IDNTimes
+from online_news.tribunnews import TribunNews
 from flask import url_for, request
 
 class NewsController:
-    channels = ['kompas', 'detik', 'bbc', 'cnn', 'cnbc', 'idntimes']
+    channels = ['kompas', 'detik', 'bbc', 'cnn', 'cnbc', 'idntimes', 'tribun']
     
     channelObj = None
     
@@ -40,6 +41,8 @@ class NewsController:
             self.channelObj = CNBC()
         elif channel == "idntimes":
             self.channelObj = IDNTimes()
+        elif channel == "tribun":
+            self.channelObj = TribunNews()
         else:
             self.channelObj = None
     
