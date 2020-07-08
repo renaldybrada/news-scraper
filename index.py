@@ -1,8 +1,11 @@
 from flask import Flask
 from controllers.NewsController import NewsController
 from flask import request
+from flask_cors import CORS
 
 app = Flask(__name__)
+cors = CORS(app)
+
 news = NewsController()
 
 @app.route('/')
