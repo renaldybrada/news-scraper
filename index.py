@@ -1,5 +1,6 @@
 from flask import Flask
 from controllers.NewsController import NewsController
+from controllers.DashboardController import DashboardController
 from flask import request
 from flask_cors import CORS
 
@@ -7,12 +8,18 @@ app = Flask(__name__)
 cors = CORS(app)
 
 news = NewsController()
+dashboard = DashboardController()
 
 @app.route('/')
 def hello_world():
     return {
         'message': 'it works!'
     }
+
+@app.route('/dashboard')
+def show_dashboard():
+    return dashboard.showDashboard()
+    
 
 @app.route('/channels')
 def show_list():
