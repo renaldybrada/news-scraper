@@ -8,11 +8,14 @@ class TribunNews(onlineNews):
         news_container = soup.select_one("#latestul").select('.art-list > .pos_rel > a')
 
         for new in news_container:
+            imageUrl = new.img['src']
+            betterImage = self.indexImage(imageUrl)
+
             temp = {
                 'media': 'Tribunnews',
                 'channel': 'tribun',
                 'title': new['title'],
-                'image': new.img['src'],
+                'image': betterImage,
                 'link': new['href']
             }
             news_index.append(temp)
@@ -45,4 +48,10 @@ class TribunNews(onlineNews):
         }
 
         return result
+    
+    def indexImage(self, imageUrl):
+        splitUrl = imageUrl.split("/")
+        splitUrl[6] = "images"
+        joinUrl = "/".join(splitUrl)
         
+        return joinUrl

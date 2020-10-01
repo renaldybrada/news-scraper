@@ -8,11 +8,13 @@ class BBC(onlineNews):
         # print(news_container)
         news_index = []
         for news in news_container:
+            imageUrl = news.select_one(".lx-stream-related-story--index-image-wrapper > img")['src']
+            betterImage = self.indexImage(imageUrl)
             temp = {
                 'media': 'BBC',
                 'channel': 'bbc',
                 'title': news.select_one(".lx-stream-post__header-text").get_text(),
-                'image': news.select_one(".lx-stream-related-story--index-image-wrapper > img")['src'],
+                'image': betterImage,
                 'link': 'https://www.bbc.com' + news.select_one(".lx-stream-post__header-link")['href']
             }
             news_index.append(temp)
@@ -47,3 +49,10 @@ class BBC(onlineNews):
         }
 
         return result
+
+    def indexImage(self, imageUrl):
+        splitUrl = imageUrl.split("/")
+        splitUrl[5] = "800" # 800 pixel width
+        joinUrl = "/".join(splitUrl)
+        
+        return joinUrl

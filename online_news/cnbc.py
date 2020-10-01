@@ -7,11 +7,13 @@ class CNBC(onlineNews):
         
         news_index = []
         for news in news_container:
+            imageUrl = news.select_one("img")['src']
+            betterImage = self.indexImage(imageUrl)
             temp = {
                 'media': 'CNBC',
                 'channel': 'cnbc',
                 'title': news.select_one(".box_text > h2").get_text(),
-                'image': news.select_one("img")['src'],
+                'image': betterImage,
                 'link': news.select_one("a")['href']
             }
             news_index.append(temp)
@@ -42,3 +44,10 @@ class CNBC(onlineNews):
         }
 
         return result
+
+    def indexImage(self, imageUrl):
+        splitUrl = imageUrl.split("?")
+        splitUrl[1] = "w=800&q=100"
+        joinUrl = "?".join(splitUrl)
+        
+        return joinUrl

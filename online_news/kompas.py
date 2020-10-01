@@ -8,11 +8,14 @@ class Kompas(onlineNews):
         # print(news_container)
         news_index = []
         for new in news_container:
+            imageUrl = new.img['src']
+            betterImage = self.indexImage(imageUrl)
+
             temp = {
                 'media': 'Kompas',
                 'channel': 'kompas',
                 'title': new.img['alt'],
-                'image': new.img['src'],
+                'image': betterImage,
                 'link': new['href']
             }
             news_index.append(temp)
@@ -44,3 +47,13 @@ class Kompas(onlineNews):
 
         return result
         
+    def indexImage(self, imageUrl):
+        splitUrl = imageUrl.split("/")
+        remove_index_point = 3
+
+        for x in range(4):
+            removeString = splitUrl.pop(remove_index_point)
+
+        joinUrl = "/".join(splitUrl)
+
+        return joinUrl

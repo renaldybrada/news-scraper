@@ -9,11 +9,14 @@ class CNN(onlineNews):
         news_index = []
         for new in news_container:
             if new.select_one('.title') != None:
+                imageUrl = new.img['src']
+                betterImage = self.indexImage(imageUrl)
+
                 temp = {
                     'media': 'CNN',
                     'channel': 'cnn',
                     'title': new.select_one('.title').text,
-                    'image': new.img['src'],
+                    'image': betterImage,
                     'link': new.a['href']
                 }
                 news_index.append(temp)
@@ -46,3 +49,9 @@ class CNN(onlineNews):
 
         return result
         
+    def indexImage(self, imageUrl):
+        splitUrl = imageUrl.split("?")
+        splitUrl[1] = "w=800&q=100"
+        joinUrl = "?".join(splitUrl)
+        
+        return joinUrl

@@ -8,11 +8,14 @@ class Detik(onlineNews):
         # print(news_container)
         news_index = []
         for news in news_container:
+            imageUrl = news.select_one(".media__image > a > span > img")['src']
+            betterImage = self.indexImage(imageUrl)
+
             temp = {
                 'media': 'Detikcom',
                 'channel': 'detik',
                 'title': news.select_one(".media__title > a").get_text(),
-                'image': news.select_one(".media__image > a > span > img")['src'],
+                'image': betterImage,
                 'link': news.select_one(".media__title > a")['href']
             }
             news_index.append(temp)
@@ -46,3 +49,10 @@ class Detik(onlineNews):
         }
 
         return result
+
+    def indexImage(self, imageUrl):
+        splitUrl = imageUrl.split("?")
+        splitUrl[1] = "w=800&q=100"
+        joinUrl = "?".join(splitUrl)
+        
+        return joinUrl
