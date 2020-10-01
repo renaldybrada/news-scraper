@@ -4,3 +4,4 @@ __pycache__
 */__pycache__
 news_test.py
 .vercel
+flaskapp.wsgi
