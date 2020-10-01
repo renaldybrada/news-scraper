@@ -4,7 +4,6 @@ import random
 from flask import url_for, request
 
 class DashboardController(BaseNewsController):
-    channels = ['kompas', 'detik', 'bbc', 'cnn', 'cnbc', 'idntimes', 'tribun']
     headlineByMedia = {}
     wordService = WordCountService()
 
