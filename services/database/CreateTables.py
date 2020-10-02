@@ -1,3 +1,4 @@
+import mysql.connector
 from services.database.Connector import DBConnector
 
 class ColumnStructure():
@@ -29,34 +30,34 @@ class CreateTables(DBConnector):
             columnQuery = columnQuery + temp + conj 
 
         query = "CREATE TABLE %s (%s)" % (table.name, columnQuery)
-        print(query)
-        # self.connection.execute(query)
+        # print(query)
+        try :
+            self.connection.execute(query)
+        except mysql.connector.Error as err:
+            print(err.msg)
+
+        self.closeConnection()
 
 class MigrateTable():
     tables = [
-        TableStructure("channels", [
-            ColumnStructure("id", "INT", False, True),
-            ColumnStructure("name", "VARCHAR(255)"),
-            ColumnStructure("status", "VARCHAR(255)")
-        ]),
         TableStructure("headlines", [
             ColumnStructure("id", "INT", False, True),
             ColumnStructure("channel_name", "VARCHAR(255)"),
             ColumnStructure("original_link", "VARCHAR(255)"),
             ColumnStructure("title", "VARCHAR(255)"),
             ColumnStructure("image", "VARCHAR(255)"),
-            ColumnStructure("created_at", "DATE()"),
+            ColumnStructure("created_at", "DATETIME"),
         ]),
         TableStructure("analytic_common_words", [
             ColumnStructure("id", "INT", False, True),
             ColumnStructure("content", "TEXT", False),
-            ColumnStructure("created_at", "DATE()"),
+            ColumnStructure("created_at", "DATETIME"),
         ])
     ]
 
     def migrate(self):
-        exec = CreateTables()
         for table in self.tables:
+            exec = CreateTables()
             exec.createTable(table)
 
         return 0
