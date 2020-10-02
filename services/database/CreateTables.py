@@ -23,6 +23,8 @@ class CreateTables(DBConnector):
 
             if column.isPrimary:
                 temp = temp + " PRIMARY KEY"
+                if column.type == "INT":
+                    temp = temp + " AUTO_INCREMENT"
 
             conj = ", "
             if i == (len(table.columns) - 1):
