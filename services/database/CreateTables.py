@@ -52,6 +52,10 @@ class MigrateTable():
             ColumnStructure("original_link", "VARCHAR(255)", False, False, True),
             ColumnStructure("title", "VARCHAR(255)"),
             ColumnStructure("image", "VARCHAR(255)"),
+            ColumnStructure("author", "VARCHAR(255)"),
+            ColumnStructure("editor", "VARCHAR(255)"),
+            ColumnStructure("content", "TEXT"),
+            ColumnStructure("publish_date", "VARCHAR(255)"),
             ColumnStructure("created_at", "DATETIME"),
         ]),
         TableStructure("analytic_common_words", [

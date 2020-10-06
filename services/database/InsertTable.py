@@ -3,7 +3,9 @@ from services.database.Connector import DBConnector
 
 class InsertTable(DBConnector):
     def headline(self, headlines):
-        query = "INSERT IGNORE INTO headlines (channel_name ,original_link, title, image, created_at) VALUES (%s, %s, %s, %s, %s)"
+        query = "INSERT IGNORE INTO headlines (\
+            channel_name ,original_link, title, image, author, editor, content, publish_date, created_at)\
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
         values = []
         for headline in headlines:
             values.append(headline.toTuple())

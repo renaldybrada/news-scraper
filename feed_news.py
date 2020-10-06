@@ -3,6 +3,7 @@ from services.database.dto.Headline import Headline
 from services.database.dto.Analytic import Analytic
 from services.database.InsertTable import InsertTable
 from controllers.DashboardController import DashboardController
+from controllers.BaseNewsController import BaseNewsController
 import sys
 
 def migrateTable():
@@ -10,6 +11,7 @@ def migrateTable():
     migrateTable.migrate()
 
 def insertTable():
+    baseNews = BaseNewsController()
     dashboardData = DashboardController()
     dashboardData.fetchAllHeadlines()
     dashboardData.fetchAnalytics()
@@ -17,7 +19,20 @@ def insertTable():
     # prepare headline item
     headlineItems = []
     for headline in dashboardData.allHeadline:
-        temp = Headline(headline['channel'], headline['link'], headline['title'], headline['image'])
+        baseNews.setChannel(headline['channel'])
+        news = {
+            'author': '',
+            'editor': '',
+            'content': '',
+            'date': ''
+        }
+        try:
+            news = baseNews.channelObj.showNews(headline['link'])
+        except Exception as e:
+            print('Error get news : ' + headline['link'])
+
+        temp = Headline(headline['channel'], headline['link'], headline['title'], headline['image'], \
+                        news['author'], news['editor'], baseNews.newsFormat.formatNews(news['content']), news['date'])
         headlineItems.append(temp)
         
     # prepare analytic item
