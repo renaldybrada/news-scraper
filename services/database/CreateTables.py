@@ -2,11 +2,12 @@ import mysql.connector
 from services.database.Connector import DBConnector
 
 class ColumnStructure():
-    def __init__(self, columnName, columnType, nullable=True, isPrimary=False):
+    def __init__(self, columnName, columnType, nullable=True, isPrimary=False, isUnique=False):
         self.name = columnName
         self.type = columnType
         self.nullable = nullable
         self.isPrimary = isPrimary
+        self.isUnique = isUnique
 
 class TableStructure():
     def __init__(self, tableName, tableColumns):
@@ -25,6 +26,9 @@ class CreateTables(DBConnector):
                 temp = temp + " PRIMARY KEY"
                 if column.type == "INT":
                     temp = temp + " AUTO_INCREMENT"
+
+            if column.isUnique :
+                temp = temp + " UNIQUE"
 
             conj = ", "
             if i == (len(table.columns) - 1):
@@ -45,7 +49,7 @@ class MigrateTable():
         TableStructure("headlines", [
             ColumnStructure("id", "INT", False, True),
             ColumnStructure("channel_name", "VARCHAR(255)"),
-            ColumnStructure("original_link", "VARCHAR(255)"),
+            ColumnStructure("original_link", "VARCHAR(255)", False, False, True),
             ColumnStructure("title", "VARCHAR(255)"),
             ColumnStructure("image", "VARCHAR(255)"),
             ColumnStructure("created_at", "DATETIME"),

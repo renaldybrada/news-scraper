@@ -25,8 +25,8 @@ class DBConnector:
             elif err.errno == errorcode.ER_BAD_DB_ERROR:
                 print("Database does not exist")
             else:
-                print(err)
+                print("Connection problem : " + err)
 
     def closeConnection(self):
-        self.mydb.close()
         self.connection.close()
+        self.mydb.close()

@@ -4,18 +4,16 @@ import random
 from flask import url_for, request
 
 class DashboardController(BaseNewsController):
+    allHeadline = []
     headlineByMedia = {}
+    analytics = {}
     wordService = WordCountService()
 
     def showDashboard(self):
         # fetch headlines
         self.fetchAllHeadlines()
-
-        analytics = self.wordService \
-                        .createCorpus(self.headlineByMedia) \
-                        .removeStopWord() \
-                        .splitWords() \
-                        .mostCommonWordsByMedia()
+        #fetch analytics
+        self.fetchAnalytics()
 
         return self.response.successResponse(
             {
@@ -24,16 +22,24 @@ class DashboardController(BaseNewsController):
                     "summary": self.headlineSummary()
                 },
                 "common_words": {
-                    "by_media": analytics.commonWordByMedia
+                    "by_media": self.analytics.commonWordByMedia
                 }
             }    
         )
+
+    def fetchAnalytics(self):
+        self.analytics = self.wordService \
+                            .createCorpus(self.headlineByMedia) \
+                            .removeStopWord() \
+                            .splitWords() \
+                            .mostCommonWordsByMedia()
 
     def fetchAllHeadlines(self):
         for channel in self.channels:
             self.setChannel(channel)
             headlineTemp = self.channelObj.getIndex()
-
+            
+            self.allHeadline = self.allHeadline + headlineTemp 
             # group headline by media 
             self.headlineByMedia[channel] = headlineTemp
 

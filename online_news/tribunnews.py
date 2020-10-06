@@ -51,7 +51,10 @@ class TribunNews(onlineNews):
     
     def indexImage(self, imageUrl):
         splitUrl = imageUrl.split("/")
-        splitUrl[6] = "images"
-        joinUrl = "/".join(splitUrl)
-        
-        return joinUrl
+        if (len(splitUrl) > 6):
+            splitUrl[6] = "images"
+            joinUrl = "/".join(splitUrl)
+            
+            return joinUrl
+        else:
+            return imageUrl
