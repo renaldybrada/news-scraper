@@ -7,7 +7,7 @@ import os
 class DBConnector:
     
     def __init__(self):
-        env_path = Path('.') / '.env'
+        env_path = str(Path('.') / '.env')
         load_dotenv(dotenv_path=env_path)
         
         try :
