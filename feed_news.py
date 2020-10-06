@@ -18,18 +18,24 @@ def insertTable():
 
     # prepare headline item
     headlineItems = []
+    imageDetailChannels = ['idntimes'] # list of channel need to scrap image in detail for replacing image in index
     for headline in dashboardData.allHeadline:
         baseNews.setChannel(headline['channel'])
         news = {
             'author': '',
             'editor': '',
             'content': '',
-            'date': ''
+            'date': '',
+            'image': ''
         }
         try:
             news = baseNews.channelObj.showNews(headline['link'])
         except Exception as e:
             print('Error get news : ' + headline['link'])
+
+        # replace image for listed channels
+        if headline['channel'] in imageDetailChannels:
+            headline['image'] = news['image']
 
         temp = Headline(headline['channel'], headline['link'], headline['title'], headline['image'], \
                         news['author'], news['editor'], baseNews.newsFormat.formatNews(news['content']), news['date'])
