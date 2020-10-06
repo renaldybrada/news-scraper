@@ -34,6 +34,15 @@ class WordCountService:
         corpusHeadline = []
         channel = []
         for c, headline in self.corpus.items():
-            self.commonWordByMedia[c] = Counter(headline.split()).most_common(30)
+            splitText = Counter(headline.split()).most_common(30)
+            formatedKeyword = []
+            for text in splitText:
+                tempKeyword = {
+                    "keyword": text[0],
+                    "count": text[1]
+                }
+                formatedKeyword.append(tempKeyword)
+                
+            self.commonWordByMedia[c] = formatedKeyword 
 
         return self
