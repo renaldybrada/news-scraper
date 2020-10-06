@@ -27,7 +27,7 @@ class BBC(onlineNews):
         except:
             raise Exception("Something went wrong. check is your link valid") 
         
-        paragraphs = soup.select_one(".story-body__inner").find_all("p")
+        paragraphs = soup.select_one("main").find_all("p")
 
         content = ''
         author = ''
@@ -36,7 +36,7 @@ class BBC(onlineNews):
             text = p.get_text()
             content += text + " " 
 
-        if soup.select_one(".byline__name") != None:
+        if soup.select_one("li .Name-sc-1dejso6-3 bHeFsT") != None:
             author = soup.select_one(".byline__name").string
 
         result = {

@@ -36,11 +36,15 @@ class TribunNews(onlineNews):
             if "Baca: " not in text:
                 if "Penulis : " not in text:
                     if "Artikel ini telah tayang " not in text:            
-                        content += text + " " 
+                        content += text + " "
+
+        image = ""
+        if soup.select_one(".imgfull") != None:
+            image = soup.select_one(".imgfull")['src']
 
         result = {
             'title': soup.title.string,
-            'image': soup.select_one(".imgfull")['src'],
+            'image': image,
             'content': content,
             'author': "",
             'editor': "",
