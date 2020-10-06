@@ -31,8 +31,7 @@ class DashboardController(BaseNewsController):
         self.analytics = self.wordService \
                             .createCorpus(self.headlineByMedia) \
                             .removeStopWord() \
-                            .splitWords() \
-                            .mostCommonWordsByMedia()
+                            .splitWords()
 
     def fetchAllHeadlines(self):
         for channel in self.channels:
