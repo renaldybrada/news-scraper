@@ -32,6 +32,7 @@ def insertTable():
             news = baseNews.channelObj.showNews(headline['link'])
         except Exception as e:
             print('Error get news : ' + headline['link'])
+            continue
 
         # replace image for listed channels
         if headline['channel'] in imageDetailChannels:

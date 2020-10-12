@@ -36,8 +36,12 @@ class DashboardController(BaseNewsController):
     def fetchAllHeadlines(self):
         for channel in self.channels:
             self.setChannel(channel)
-            headlineTemp = self.channelObj.getIndex()
-            
+            try:
+                headlineTemp = self.channelObj.getIndex()
+            except Exception as e:
+                print('Error get headline : ' + channel)
+                continue
+
             self.allHeadline = self.allHeadline + headlineTemp 
             # group headline by media 
             self.headlineByMedia[channel] = headlineTemp
