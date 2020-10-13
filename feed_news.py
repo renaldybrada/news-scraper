@@ -52,6 +52,8 @@ def insertTable():
     insertA = InsertTable()
     insertA.analytics(analyticItem)
 
+    print('success inserting ' + str(len(headlineItems)) + ' news!')
+
 
 menus = ["migrate", "insert"]
 
