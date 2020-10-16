@@ -5,13 +5,14 @@ from online_news.cnn import CNN
 from online_news.cnbc import CNBC
 from online_news.idntimes import IDNTimes
 from online_news.tribunnews import TribunNews
+from online_news.tempo import Tempo
 from services.NewsFormatService import NewsFormatService
 from services.ResponseService import ResponseService
 
 class BaseNewsController:
     newsFormat = NewsFormatService()
     response = ResponseService()
-    channels = ['kompas', 'detik', 'bbc', 'cnn', 'cnbc', 'idntimes', 'tribun']
+    channels = ['kompas', 'detik', 'bbc', 'cnn', 'cnbc', 'idntimes', 'tribun', 'tempo']
     channelObj = None
 
     def setChannel(self, channel):
@@ -29,5 +30,7 @@ class BaseNewsController:
             self.channelObj = IDNTimes()
         elif channel == "tribun":
             self.channelObj = TribunNews()
+        elif channel == "tempo":
+            self.channelObj = Tempo()
         else:
             self.channelObj = None

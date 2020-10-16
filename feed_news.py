@@ -18,7 +18,9 @@ def insertTable():
 
     # prepare headline item
     headlineItems = []
-    imageDetailChannels = ['idntimes'] # list of channel need to scrap image in detail for replacing image in index
+    # list of channel need to scrap image in detail for replacing image in index
+    imageDetailChannels = ['idntimes', 'tempo'] 
+    
     for headline in dashboardData.allHeadline:
         baseNews.setChannel(headline['channel'])
         news = {
