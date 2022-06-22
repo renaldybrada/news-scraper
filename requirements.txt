@@ -19,7 +19,7 @@ joblib==0.16.0
 lxml==4.5.0
 MarkupSafe==1.1.1
 mysql-connector-python==8.0.21
-numpy==1.19.2
+numpy==1.22.0
 parsel==1.5.2
 Protego==0.1.16
 protobuf==3.13.0
